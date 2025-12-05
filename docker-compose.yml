@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongodb
       - rag_api
-    image: bubune99/librechat-custom:latest
+    image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
     restart: always
     user: "${UID}:${GID}"
     extra_hosts:
@@ -18,8 +18,8 @@ services:
       - HOST=0.0.0.0
       - MONGO_URI=mongodb://mongodb:27017/LibreChat
       - MEILI_HOST=http://meilisearch:7700
-      - RAG_PORT=${RAG_PORT:-8000}
-      - RAG_API_URL=http://rag_api:${RAG_PORT:-8000}
+      - RAG_PORT=${RAG_PORT:-3401}
+      - RAG_API_URL=http://rag_api:${RAG_PORT:-3401}
     volumes:
       - type: bind
         source: ./.env
@@ -61,7 +61,7 @@ services:
     image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
     environment:
       - DB_HOST=vectordb
-      - RAG_PORT=${RAG_PORT:-8000}
+      - RAG_PORT=${RAG_PORT:-3401}
     restart: always
     depends_on:
       - vectordb
